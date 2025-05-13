@@ -1,0 +1,12 @@
+
+#min{
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: cover;
+}
+.button {
+ -fx-background-color: red;
+ -fx-text-fill: white;
+}
+
+
+
