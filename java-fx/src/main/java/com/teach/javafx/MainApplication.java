@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * 应用的主程序 MainApplication 按照编程规范，需继承Application 重写start 方法 主方法调用Application的launch() 启动程序
@@ -28,6 +29,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("教学管理系统");
         stage.setScene(scene);
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/teach/javafx/picture/xiaohui.jpg"))));
         stage.show();
         stage.setOnCloseRequest(event -> {
             if(canClose) {
@@ -63,12 +65,12 @@ public class MainApplication extends Application {
         stageHeight = mainStage.getHeight();
         mainStage.setTitle(name);
         mainStage.setScene(scene);
-        double x = (stageWidth-320)/2;
-        double y = (stageHeight-240)/2;
+        double x = (stageWidth-600)/2;
+        double y = (stageHeight-400)/2;
         mainStage.setX(x);
         mainStage.setY(y);
-        mainStage.setWidth(320);
-        mainStage.setHeight(240);
+        mainStage.setWidth(600);
+        mainStage.setHeight(400);
         mainStage.show();
     }
 

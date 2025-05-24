@@ -1,6 +1,6 @@
 
     #min{
-
+          -fx-background-image: url("BackGroundPicture.jpg");
           -fx-background-repeat: no-repeat;
           -fx-background-size: cover;
     }

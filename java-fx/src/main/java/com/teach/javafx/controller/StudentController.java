@@ -4,6 +4,7 @@ import com.teach.javafx.MainApplication;
 import com.teach.javafx.controller.base.LocalDateStringConverter;
 import com.teach.javafx.controller.base.ToolController;
 import com.teach.javafx.request.*;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -27,6 +28,7 @@ import javafx.stage.FileChooser;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,7 +99,10 @@ public class StudentController extends ToolController {
 
     private ArrayList<Map> studentList = new ArrayList();  // 学生信息列表数据
     private List<OptionItem> genderList;   //性别选择列表数据
-    private ObservableList<Map> observableList = FXCollections.observableArrayList();  // TableView渲染列表
+    private ObservableList<Map> observableList = FXCollections.observableArrayList();// TableView渲染列表
+    private Stage stage=null;
+
+
 
 
     /**
@@ -351,70 +356,7 @@ public class StudentController extends ToolController {
         }
     }
 
-    @FXML
-    protected void onFamilyButtonClick() {
-        DataRequest req = new DataRequest();
-        req.add("personId", personId);
-        DataResponse res = HttpRequestUtil.request("/api/student/getFamilyMemberList", req);
-        if (res.getCode() != 0) {
-            MessageDialog.showDialog(res.getMsg());
-            return;
-        }
-        List<Map> familyList = (List<Map>) res.getData();
-        ObservableList<Map> oList = FXCollections.observableArrayList(familyList);
-        Scene scene = null, pScene = null;
-        Stage stage;
-        stage = new Stage();
-        TableView<Map> table = new TableView<>(oList);
-        table.setEditable(true);
-        TableColumn<Map, String> relationColumn = new TableColumn<>("关系");
-        relationColumn.setCellValueFactory(new MapValueFactory("relation"));
-        relationColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        relationColumn.setOnEditCommit(event -> {
-            TableView tempTable = event.getTableView();
-            Map tempEntity = (Map) tempTable.getItems().get(event.getTablePosition().getRow());
-            tempEntity.put("relation",event.getNewValue());
-        });
-        table.getColumns().add(relationColumn);
-        TableColumn<Map, String> nameColumn = new TableColumn<>("姓名");
-        nameColumn.setCellValueFactory(new MapValueFactory<>("name"));
-        nameColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        table.getColumns().add(nameColumn);
-        TableColumn<Map, String> genderColumn = new TableColumn<>("性别");
-        genderColumn.setCellValueFactory(new MapValueFactory<>("gender"));
-        genderColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        table.getColumns().add(genderColumn);
-        TableColumn<Map, String> ageColumn = new TableColumn<>("年龄");
-        ageColumn.setCellValueFactory(new MapValueFactory<>("age"));
-        ageColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        table.getColumns().add(ageColumn);
-        TableColumn<Map, String> unitColumn = new TableColumn<>("单位");
-        unitColumn.setCellValueFactory(new MapValueFactory<>("unit"));
-        unitColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        table.getColumns().add(unitColumn);
-        BorderPane root = new BorderPane();
-        FlowPane flowPane = new FlowPane();
-        Button obButton = new Button("确定");
-        obButton.setOnAction(event -> {
-            for(Map map: table.getItems()) {
-                System.out.println("map:"+map);
-            }
-            stage.close();
-        });
-        flowPane.getChildren().add(obButton);
-        root.setCenter(table);
-        root.setBottom(flowPane);
-        scene = new Scene(root, 260, 140);
-        stage.initOwner(MainApplication.getMainStage());
-        stage.initModality(Modality.NONE);
-        stage.setAlwaysOnTop(true);
-        stage.setScene(scene);
-        stage.setTitle("成绩录入对话框！");
-        stage.setOnCloseRequest(event -> {
-            MainApplication.setCanClose(true);
-        });
-        stage.showAndWait();
-    }
+
     public void displayPhoto(){
         DataRequest req = new DataRequest();
         req.add("fileName", "photo/" + personId + ".jpg");  //个人照片显示

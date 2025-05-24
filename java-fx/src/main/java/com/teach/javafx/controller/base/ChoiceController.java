@@ -51,11 +51,6 @@ public class ChoiceController {
         choice = MessageDialog.CHOICE_YES;
         close();
     }
-    @FXML
-    public void noButtonClick(){
-        choice = MessageDialog.CHOICE_NO;
-        close();
-    }
 
     public void close(){
         MainApplication.setCanClose(true);

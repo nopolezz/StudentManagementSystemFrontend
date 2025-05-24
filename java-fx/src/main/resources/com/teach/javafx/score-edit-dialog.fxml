@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #3b3b3b;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.ScoreEditController">
+<VBox fx:id="min" stylesheets="@css/styles.css" alignment="CENTER" spacing="20.0"  xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.ScoreEditController">
    <padding>
       <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
    </padding>
@@ -27,19 +27,19 @@
          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-         <Label text="学生" textFill="#f6f1f1" GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <Label text="学生"  GridPane.columnIndex="0" GridPane.rowIndex="0">
             <GridPane.margin>
                <Insets right="5.0" />
             </GridPane.margin>
          </Label>
          <ComboBox fx:id="studentComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-         <Label text="课程" textFill="#fdfafa" GridPane.columnIndex="0" GridPane.rowIndex="1">
+         <Label text="课程"  GridPane.columnIndex="0" GridPane.rowIndex="1">
             <GridPane.margin>
                <Insets right="5.0" />
             </GridPane.margin>
          </Label>
          <ComboBox fx:id="courseComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         <Label text="成绩" textFill="#f4f2f2" GridPane.columnIndex="0" GridPane.rowIndex="2">
+         <Label text="成绩"  GridPane.columnIndex="0" GridPane.rowIndex="2">
             <GridPane.margin>
                <Insets right="5.0" />
             </GridPane.margin>

@@ -12,10 +12,8 @@ import java.io.IOException;
  * MessageDialog 消息对话框工具类 可以显示提示信息，用户选择确认信息和PDF显示
  */
 public class MessageDialog {
-    public final static int CHOICE_OK = 1;
     public final static int CHOICE_CANCEL = 2;
     public final static int CHOICE_YES = 3;
-    public final static int CHOICE_NO = 4;
 
     private  MessageController messageController= null;
     private  ChoiceController choiceController= null;
@@ -42,7 +40,7 @@ public class MessageDialog {
                 MainApplication.setCanClose(true);
             });
             stage.setScene(scene);
-            stage.setTitle("信息显示对话框");
+            stage.setTitle("提示");
             messageController = (MessageController) fxmlLoader.getController();
             messageController.setStage(stage);
 
@@ -56,7 +54,7 @@ public class MessageDialog {
                 MainApplication.setCanClose(true);
             });
             stage.setScene(scene);
-            stage.setTitle("信息显示对话框");
+            stage.setTitle("提示");
             choiceController = (ChoiceController) fxmlLoader.getController();
             choiceController.setStage(stage);
 

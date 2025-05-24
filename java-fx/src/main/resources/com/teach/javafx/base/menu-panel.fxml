@@ -18,13 +18,13 @@
 
 <!-- 菜单管理面板FXML配置文件 对应页面交互控制类 com.teach.javafx.controller.base.MenuController -->
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.base.MenuController">
+<BorderPane fx:id="min" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.base.MenuController">
    <top>
-       <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: #3b3b3b;">
+       <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0">
            <children>
-               <FlowPane columnHalignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #3b3b3b;" BorderPane.alignment="CENTER">
+               <FlowPane columnHalignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" BorderPane.alignment="CENTER">
                    <children>
-                      <Button mnemonicParsing="false" onAction="#onAddRootButtonClick" style="-fx-background-color: #ffffff;" text="添加一级菜单">
+                      <Button mnemonicParsing="false" onAction="#onAddRootButtonClick" text="添加一级菜单">
                      <FlowPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </FlowPane.margin></Button>
@@ -37,29 +37,29 @@
        </HBox>
    </top>
    <center>
-       <SplitPane dividerPositions="0.3218527315914489" prefHeight="2490.0" prefWidth="1125.0" style="-fx-background-color: #3b3b3b;" BorderPane.alignment="CENTER">
+       <SplitPane dividerPositions="0.3218527315914489" BorderPane.alignment="CENTER">
            <items>
-               <TreeView fx:id="menuTreeView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3b3b3b;" BorderPane.alignment="CENTER" />
-               <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0" style="-fx-background-color: #3b3b3b;">
+               <TreeView fx:id="menuTreeView" prefHeight="400.0" prefWidth="236.0" BorderPane.alignment="CENTER" />
+               <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #C6FFDD;">
                    <padding>
                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                    </padding>
-                   <GridPane prefHeight="367.0" prefWidth="718.0">
+                   <GridPane alignment="CENTER">
                        <columnConstraints>
-                           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="392.5" minWidth="10.0" prefWidth="84.0" />
-                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="729.5" minWidth="10.0" prefWidth="725.0" />
+                           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                           <ColumnConstraints hgrow="SOMETIMES" />
                        </columnConstraints>
                        <rowConstraints>
                            <RowConstraints maxHeight="52.333343505859375" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-                           <RowConstraints maxHeight="138.66666666666666" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
-                           <RowConstraints maxHeight="234.66667175292966" minHeight="10.0" prefHeight="87.33333333333331" vgrow="SOMETIMES" />
-                     <RowConstraints maxHeight="199.99997456868488" minHeight="27.999989827473954" prefHeight="40.00001525878906" />
-                     <RowConstraints maxHeight="193.33331807454425" minHeight="8.666671752929673" prefHeight="189.33331807454425" />
+                           <RowConstraints maxHeight="66.66667683919272" minHeight="27.999989827473957" prefHeight="66.66667683919272" vgrow="SOMETIMES" />
+                           <RowConstraints maxHeight="79.99998219807942" minHeight="28.666676839192707" prefHeight="51.33332316080728" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="199.99997456868488" minHeight="27.999989827473954" prefHeight="54.00001017252603" />
+                     <RowConstraints maxHeight="111.99997965494792" minHeight="20.00001017252606" prefHeight="33.33332316080731" />
                        </rowConstraints>
                        <children>
-                           <Label fx:id="nodeParentLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                           <Label fx:id="nodeParentLabel" text="112" GridPane.columnIndex="1" GridPane.rowIndex="0">
                            </Label>
-                           <Label alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="274.0" text="主键ID：" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                           <Label alignment="CENTER_RIGHT" text="主键ID：" GridPane.columnIndex="0" GridPane.rowIndex="1">
                                 <GridPane.margin>
                                    <Insets right="10.0" />
                                 </GridPane.margin>
@@ -67,8 +67,8 @@
                            <Font size="16.0" />
                         </font>
                            </Label>
-                           <TextField fx:id="nodeIdField" prefHeight="42.0" prefWidth="679.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           <Label alignment="CENTER_RIGHT" prefHeight="57.0" prefWidth="430.0" text="菜单名称（对应fxml文件）：" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                           <TextField fx:id="nodeIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           <Label alignment="CENTER_RIGHT" text="菜单名称（对应fxml文件）：" GridPane.columnIndex="0" GridPane.rowIndex="2">
                                <GridPane.margin>
                                    <Insets right="10.0" />
                                </GridPane.margin>
@@ -76,8 +76,8 @@
                            <Font size="16.0" />
                         </font>
                            </Label>
-                           <TextField fx:id="nodeNameField" prefHeight="41.0" prefWidth="679.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                           <Label alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="334.0" text="菜单标题：" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                           <TextField fx:id="nodeNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <Label alignment="CENTER_RIGHT" text="菜单标题：" GridPane.columnIndex="0" GridPane.rowIndex="3">
                                 <GridPane.margin>
                                    <Insets right="10.0" />
                                 </GridPane.margin>
@@ -85,35 +85,35 @@
                            <Font size="16.0" />
                         </font>
                            </Label>
-                           <TextField fx:id="nodeTitleField" prefHeight="67.0" prefWidth="679.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                           <Label prefHeight="15.0" prefWidth="105.0" text="角色权限赋予：" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                           <TextField fx:id="nodeTitleField" prefHeight="23.0" prefWidth="646.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           <Label text="角色权限赋予：" GridPane.columnIndex="0" GridPane.rowIndex="4">
                                <GridPane.margin>
                                    <Insets right="10.0" />
                                </GridPane.margin>
                            </Label>
-                             <HBox prefHeight="30.0" prefWidth="679.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                             <HBox alignment="CENTER" prefHeight="113.0" prefWidth="673.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <GridPane.margin>
                                      <Insets top="3.0" />
                                  </GridPane.margin>
                                 <children>
-                                   <CheckBox fx:id="nodeAdminCheckBox" mnemonicParsing="false" prefHeight="183.0" prefWidth="69.0" text="管理员" textFill="#fff7f7">
+                                   <CheckBox fx:id="nodeAdminCheckBox" mnemonicParsing="false" text="管理员">
                                        <padding>
                                            <Insets left="10" />
                                        </padding>
                                    </CheckBox>
-                                   <CheckBox fx:id="nodeStudentCheckBox" mnemonicParsing="false" prefHeight="186.0" prefWidth="62.0" text="学生" textFill="WHITE">
+                                   <CheckBox fx:id="nodeStudentCheckBox" mnemonicParsing="false" text="学生">
                                        <padding>
                                            <Insets left="10" />
                                        </padding>
                                    </CheckBox>
-                                    <CheckBox fx:id="nodeTeacherCheckBox" mnemonicParsing="false" prefHeight="186.0" prefWidth="290.0" text="教师" textFill="WHITE">
+                                    <CheckBox fx:id="nodeTeacherCheckBox" mnemonicParsing="false" text="教师">
                                         <padding>
                                             <Insets left="10" />
                                         </padding>
                                     </CheckBox>
-                                <Button onAction="#onSubmitButtonClick" prefHeight="61.0" prefWidth="159.0" style="-fx-background-color: #ffffff;" text="保存">
+                                <Button onAction="#onSubmitButtonClick" text="保存">
                               <HBox.margin>
-                                 <Insets top="60.0" />
+                                 <Insets left="80.0" right="80.0" />
                               </HBox.margin>
                            </Button>
                                 </children>

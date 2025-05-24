@@ -1,69 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 学生个人简历界面 FXML配置文件 对应页面交互控制类 com.teach.javafx.controller.StudentIntroduceController -->
-
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="758.0" prefWidth="896.0" style="-fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-background-color: #3b3b3b;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.CourseController">
-   <center>
-      <TableView fx:id="dataTableView" prefHeight="713.0" prefWidth="959.0" style="-fx-background-color: #3b3b3b;" BorderPane.alignment="CENTER">
-         <columns>
-            <TableColumn fx:id="nameColumn" prefWidth="275.33338165283203" text="课程名" />
-            <TableColumn fx:id="creditColumn" prefWidth="144.66665649414062" text="学分" />
-            <TableColumn fx:id="preCourseColumn" prefWidth="196.00006103515625" text="前序课" />
-            <TableColumn fx:id="operateColumn" prefWidth="403.99993896484375" text="操作" />
-            <TableColumn fx:id="numColumn" prefWidth="120.0" text="课程号" />
-         </columns>
-      </TableView>
-   </center>
-   <top>
-      <HBox prefHeight="43.0" prefWidth="896.0" BorderPane.alignment="CENTER">
+<AnchorPane fx:id="min" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.CourseController">
+   <children>
+      <VBox alignment="CENTER" prefWidth="924.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <FlowPane alignment="TOP_LEFT" prefHeight="68.0" prefWidth="255.0">
+            <Label style="-fx-font-size: 16px;" text="课程管理" />
+            <HBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onAddButtonClick" text="添加">
-                     <FlowPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </FlowPane.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#onEditButtonClick" text="修改">
-                     <FlowPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </FlowPane.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#onDeleteButtonClick" text="删除">
-                     <FlowPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </FlowPane.margin>
-                  </Button>
+                  <TextField fx:id="numField" prefWidth="100.0" promptText="课程编号" />
+                  <TextField fx:id="nameField" prefWidth="150.0" promptText="课程名称" />
+                  <TextField fx:id="creditField" prefWidth="80.0" promptText="学分" />
+                  <Button fx:id="addButton" onAction="#saveCourse" stylesheets="@css/styles.css" text="添加" />
                </children>
-            </FlowPane>
-            <HBox prefHeight="43.0" prefWidth="366.0" />
-            <FlowPane alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="500.0">
-               <children>
-                  <Label prefHeight="23.0" prefWidth="61.0" text="课程名：" textFill="#ddcece">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField />
-                  <Button mnemonicParsing="false" onAction="#onQueryButtonClick" text="查询">
-                     <FlowPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </FlowPane.margin>
-                  </Button>
-               </children>
-            </FlowPane>
+            </HBox>
+            <TableView fx:id="dataTableView" prefHeight="888.0" prefWidth="924.0">
+               <columns>
+                  <TableColumn fx:id="numColumn" minWidth="-1.0" prefWidth="100.0" text="课程编号" />
+                  <TableColumn fx:id="nameColumn" prefWidth="122.6667251586914" text="课程名称" />
+                  <TableColumn fx:id="creditColumn" prefWidth="133.99998474121094" text="学分" />
+                  <TableColumn fx:id="operateColumn" prefWidth="129.99993896484375" text="操作" />
+               </columns>
+            </TableView>
          </children>
-      </HBox>
-   </top>
-</BorderPane>
+      </VBox>
+   </children>
+</AnchorPane>

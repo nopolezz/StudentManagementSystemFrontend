@@ -117,7 +117,7 @@ public class MainFrameController {
         List<Map> mList = (List<Map>)res.getData();
         initMenuBar(mList);
         contentTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
-        contentTabPane.setStyle("-fx-background-repeat: no-repeat; -fx-background-size: cover;");  //inline选择器
+        contentTabPane.setStyle("-fx-background-image: url('BackGroundPicture.jpg');-fx-background-repeat: no-repeat; -fx-background-size: cover;");  //inline选择器
 
 
     }
@@ -133,8 +133,6 @@ public class MainFrameController {
     }
 
     protected void logout(){
-//        Stage stage =MainApplication.getMainStage();
-//        stage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base/login-view.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), 600, 400);
@@ -197,6 +195,7 @@ public class MainFrameController {
             tabMap.put(name, tab);
         }
         contentTabPane.getSelectionModel().select(tab);
+        contentTabPane.setStyle("-fx-background-image: url('BackGroundPicture.jpg');-fx-background-repeat: no-repeat; -fx-background-size: cover;");  //inline选择器
     }
 
     public void tabSelectedChanged(Event e) {
