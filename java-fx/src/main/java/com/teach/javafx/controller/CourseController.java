@@ -1,5 +1,6 @@
 package com.teach.javafx.controller;
 
+import com.teach.javafx.controller.base.MessageDialog;
 import com.teach.javafx.request.DataRequest;
 import com.teach.javafx.request.DataResponse;
 import com.teach.javafx.request.HttpRequestUtil;
@@ -8,10 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class CourseController {
     @FXML private TableView<Map> dataTableView;
@@ -69,7 +73,7 @@ public class CourseController {
             courseList = (ArrayList<Map>) res.getData();
             setTableViewData();
         } else {
-            showAlert("错误", "无法加载课程列表");
+            MessageDialog.showDialog("错误，无法加载课表");
         }
     }
 
@@ -84,11 +88,11 @@ public class CourseController {
 
         DataResponse res = HttpRequestUtil.request("/api/course/courseSave", req);
         if (res != null && res.getCode() == 0) {
-            showAlert("成功", "课程保存成功");
+            MessageDialog.showDialog("课程保存成功");
             clearFields();
             loadCourses();
         } else {
-            showAlert("错误", res != null ? res.getMsg() : "保存失败");
+           MessageDialog.showDialog("课程保存失败");
         }
     }
 
@@ -108,13 +112,13 @@ public class CourseController {
         req.add("credit", creditField.getText().isEmpty() ? null : Integer.parseInt(creditField.getText()));
         DataResponse res = HttpRequestUtil.request("/api/course/courseSave", req);
         if (res != null && res.getCode() == 0) {
-            showAlert("成功", "课程更新成功");
+            MessageDialog.showDialog("课程更新成功");
             clearFields();
             addButton.setText("添加");
             addButton.setOnAction(event -> saveCourse());
             loadCourses();
         } else {
-            showAlert("错误", res != null ? res.getMsg() : "更新失败");
+            MessageDialog.showDialog("课程更新失败");
         }
     }
 
@@ -123,10 +127,10 @@ public class CourseController {
         req.add("courseId", Integer.parseInt(courseId));
         DataResponse res = HttpRequestUtil.request("/api/course/courseDelete", req);
         if (res != null && res.getCode() == 0) {
-            showAlert("成功", "课程删除成功");
+            MessageDialog.showDialog("课程删除成功");
             loadCourses();
         } else {
-            showAlert("错误", res != null ? res.getMsg() : "删除失败");
+            MessageDialog.showDialog("错误，删除失败");
         }
     }
 
@@ -134,13 +138,5 @@ public class CourseController {
         numField.clear();
         nameField.clear();
         creditField.clear();
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

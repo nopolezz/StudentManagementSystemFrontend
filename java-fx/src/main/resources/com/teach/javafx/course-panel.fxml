@@ -22,7 +22,7 @@
                   <Button fx:id="addButton" onAction="#saveCourse" stylesheets="@css/styles.css" text="添加" />
                </children>
             </HBox>
-            <TableView fx:id="dataTableView" prefHeight="888.0" prefWidth="924.0">
+            <TableView fx:id="dataTableView" prefHeight="888.0" prefWidth="924.0" style="-fx-background-color: #87CEFA;">
                <columns>
                   <TableColumn fx:id="numColumn" minWidth="-1.0" prefWidth="100.0" text="课程编号" />
                   <TableColumn fx:id="nameColumn" prefWidth="122.6667251586914" text="课程名称" />

@@ -71,7 +71,7 @@
        </HBox>
    </top>
    <center>
-        <TableView fx:id="dataTableView" style="-fx-background-color: #3B3B3B;">
+        <TableView fx:id="dataTableView" style="-fx-background-color: #87CEFA;">
             <columns>
                 <TableColumn fx:id="studentNumColumn" prefWidth="120.0" text="学号" />
                 <TableColumn fx:id="studentNameColumn" prefWidth="90.0" text="姓名" />

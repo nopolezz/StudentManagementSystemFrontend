@@ -1,6 +1,7 @@
 package com.teach.javafx.controller;
 
 import com.teach.javafx.AppStore;
+import com.teach.javafx.controller.base.MessageDialog;
 import com.teach.javafx.models.Student;
 import com.teach.javafx.request.DataRequest;
 import com.teach.javafx.request.DataResponse;
@@ -12,10 +13,13 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class CourseSelectController {
     @FXML
@@ -74,7 +78,7 @@ public class CourseSelectController {
     private void selectCourse(String courseId){
         JwtResponse jwt = AppStore.getJwt();
         if (jwt ==null||jwt.getId() == null){
-            showAlert("错误","请先登录");
+           MessageDialog.showDialog("错误，请先登录");
             return;
         }
         DataRequest req =new DataRequest();
@@ -82,10 +86,10 @@ public class CourseSelectController {
         req.add("courseId",Integer.parseInt(courseId));
         DataResponse res =HttpRequestUtil.request("/api/course/selectCourse",req);
         if (res !=null&& res.getCode() == 0){
-            showAlert("成功","选课成功");
+            MessageDialog.showDialog("选课成功");
         }
         else
-            showAlert("错误","选课失败");
+            MessageDialog.showDialog("选课失败");
     }
 
     private void loadCourses() {
@@ -96,15 +100,8 @@ public class CourseSelectController {
             setTableViewData();
         }
         else {
-            showAlert("错误","无法加载课表");
+            MessageDialog.showDialog("无法加载课表");
         }
-    }
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
 }

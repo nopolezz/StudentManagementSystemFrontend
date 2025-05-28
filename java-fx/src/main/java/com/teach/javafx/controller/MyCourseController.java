@@ -1,5 +1,6 @@
 package com.teach.javafx.controller;
 
+import com.teach.javafx.controller.base.MessageDialog;
 import com.teach.javafx.request.DataRequest;
 import com.teach.javafx.request.DataResponse;
 import com.teach.javafx.request.HttpRequestUtil;
@@ -9,8 +10,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class MyCourseController {
     @FXML private TableView<Map> dataTableView;
@@ -59,7 +64,7 @@ public class MyCourseController {
             courseList = (ArrayList<Map>) res.getData();
             setTableViewData();
         } else {
-            showAlert("错误", "无法加载已选课程");
+            MessageDialog.showDialog("无法加载已选课程");
         }
     }
 
@@ -70,19 +75,11 @@ public class MyCourseController {
         req.add("courseId", Integer.parseInt(courseId));
         DataResponse res = HttpRequestUtil.request("/api/course/deselectCourse", req);
         if (res != null && res.getCode() == 0) {
-            showAlert("成功", "退课成功");
+            MessageDialog.showDialog("选课成功");
             loadSelectedCourses(); // 刷新列表
         } else {
-            showAlert("错误", res != null ? res.getMsg() : "退课失败");
+            MessageDialog.showDialog("错误，选课失败");
         }
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
     @FXML
     private void refreshClick(){

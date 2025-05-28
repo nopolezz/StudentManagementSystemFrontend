@@ -3,12 +3,15 @@ package com.teach.javafx.controller.base;
 import com.teach.javafx.MainApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 /**
  * MessageController 登录交互控制类 对应 base/message-dialog.fxml
@@ -56,6 +59,7 @@ public class MessageController {
     public void showDialog(String msg) {
         text.setText(msg);
         text.setFill(Color.WHITE);
+        this.stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/teach/javafx/picture/xiaohui.jpg"))));
         this.stage.show();
     }
 }

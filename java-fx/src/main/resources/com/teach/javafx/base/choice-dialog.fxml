@@ -8,12 +8,12 @@
 
 <!-- 消息确认对话框FXML配置文件 对应页面交互控制类 om.teach.javafx.controller.base.ChoiceController -->
 
-<BorderPane fx:id="min" stylesheets="@../css/styles.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.base.ChoiceController">
+<BorderPane fx:id="min" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="300.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.base.ChoiceController">
    <center>
       <TextFlow fx:id="textFLow" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: \\;" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <FlowPane alignment="CENTER" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+      <FlowPane alignment="CENTER" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: #969696;" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#yesButtonClick" prefHeight="30.0" prefWidth="40.0" text="是">
                <padding>

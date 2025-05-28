@@ -39,8 +39,8 @@
    <center>
        <SplitPane dividerPositions="0.3218527315914489" BorderPane.alignment="CENTER">
            <items>
-               <TreeView fx:id="menuTreeView" prefHeight="400.0" prefWidth="236.0" BorderPane.alignment="CENTER" />
-               <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #C6FFDD;">
+               <TreeView fx:id="menuTreeView" prefHeight="400.0" prefWidth="236.0" style="-fx-background-color: #0096C7;" BorderPane.alignment="CENTER" />
+               <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #87CEFA;">
                    <padding>
                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                    </padding>

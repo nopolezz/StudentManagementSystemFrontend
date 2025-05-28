@@ -37,7 +37,7 @@
                 <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
                 <FlowPane alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="500.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Label text="学生" >
+                        <Label text="学生">
                             <FlowPane.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </FlowPane.margin>
@@ -61,7 +61,7 @@
         </HBox>
     </top>
     <center>
-        <TableView fx:id="dataTableView" >
+        <TableView fx:id="dataTableView" style="-fx-background-color: #87CEFA;">
             <columns>
                 <TableColumn fx:id="studentIDColumn" prefWidth="159.33336889743805" text="学号" />
                 <TableColumn fx:id="studentNameColumn" prefWidth="122.00006103515625" text="姓名" />

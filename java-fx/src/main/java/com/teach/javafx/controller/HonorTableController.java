@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class HonorTableController {
     @FXML
@@ -120,6 +122,7 @@ public class HonorTableController {
             stage.initOwner(MainApplication.getMainStage());
             stage.initModality(Modality.NONE);
             stage.setAlwaysOnTop(true);
+            stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/teach/javafx/picture/xiaohui.jpg"))));
             stage.setScene(scene);
             stage.setTitle("荣誉录入");
             stage.setOnCloseRequest(event ->{

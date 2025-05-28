@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<?import javafx.scene.control.skin.TabPaneSkin.TabControlButtons?>
-<BorderPane fx:id="min" stylesheets="@css/styles.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1118.0" style="-fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.CourseSelectController">
+<BorderPane fx:id="min" style="-fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-background-color: #FFFFFF;" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.CourseSelectController">
     <center>
-        <TableView fx:id="dataTableView" prefHeight="836.0" prefWidth="1125.0"  BorderPane.alignment="CENTER">
+        <TableView fx:id="dataTableView" style="-fx-background-color: #87CEFA;" BorderPane.alignment="CENTER">
             <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="117.9999669790268" text="课程名" />
                 <TableColumn fx:id="creditColumn" prefWidth="100.66663360595703" text="学分" />
@@ -21,7 +20,7 @@
         </TableView>
     </center>
     <top>
-        <HBox prefHeight="0.0" prefWidth="831.0" BorderPane.alignment="CENTER">
+        <HBox BorderPane.alignment="CENTER">
             <children>
                 <HBox prefHeight="43.0" prefWidth="366.0" />
             </children>

@@ -4,18 +4,26 @@
   -fx-background-repeat: no-repeat;
   -fx-background-size: cover;
 }
-.button {
-    -fx-background-color: #90EE90; /* 绿色按钮 */
+.button { /* 绿色按钮 */
+    -fx-background-color : linear-gradient(to bottom, #696969,#808080);
+    -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.8),5,0,0,4);
     -fx-text-fill: white;
-    -fx-cursor: hand; /* 鼠标悬停变手型 */
-    -fx-transition: transform 0.2s ease; /* 过渡动画：0.2秒平滑变化 */
+    -fx-cursor: hand;
+    -fx-border-radius: 4px;
+    -fx-border-width : 2px;
+    -fx-border-color: #3B3B3B;
+    -fx-transition:all 0.2s ease;
+
+}
+.button:hover {
+     -fx-background-color :#696969;
+     -fx-translate-y:1px;
+
+}
+.table-header-cell {
+    -fx-background-color: skyblue;
 }
 
-
-/* 鼠标按下时缩小（可选，增强交互感） */
-.button:pressed {
-    -fx-transform: scale(0.5);
-}
 
 
 
