@@ -53,6 +53,7 @@ public class AbsentTeaTableController {
     public List<OptionItem> getStudentList() {
         return studentList;
     }
+
     public List<OptionItem> getAbsentIdList() {
         return absentIdList;
     }

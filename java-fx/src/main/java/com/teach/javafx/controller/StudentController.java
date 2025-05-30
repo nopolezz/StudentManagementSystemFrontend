@@ -359,12 +359,17 @@ public class StudentController extends ToolController {
 
     public void displayPhoto(){
         DataRequest req = new DataRequest();
+        req.add("personId", personId);
         req.add("fileName", "photo/" + personId + ".jpg");  //个人照片显示
+
         byte[] bytes = HttpRequestUtil.requestByteData("/api/base/getFileByteData", req);
+        System.out.println(bytes);
         if (bytes != null) {
             ByteArrayInputStream in = new ByteArrayInputStream(bytes);
             Image img = new Image(in);
             photoImageView.setImage(img);
+        } else {
+            photoImageView.setImage(null);
         }
 
     }
