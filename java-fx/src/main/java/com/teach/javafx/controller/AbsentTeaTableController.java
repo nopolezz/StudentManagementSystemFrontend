@@ -64,7 +64,7 @@ public class AbsentTeaTableController {
         DataResponse res;
         DataRequest req =new DataRequest();
         req.add("personId",personId);
-        res = HttpRequestUtil.request("/api/absent/getAbsentListWithStatus/teacher",req);
+        res = HttpRequestUtil.request("/api/absent/getAbsentListWithStatus/student",req);
         if(res != null && res.getCode() == 0) {
             absentListWithStatus = (ArrayList<Map>)res.getData();
         }
@@ -157,6 +157,7 @@ public class AbsentTeaTableController {
             req.add("absentId", CommonMethod.getInteger(data, "absentId"));
             req.add("auth_status", CommonMethod.getInteger(data, "auth_status"));
             res = HttpRequestUtil.request("/api/absent/absentAuth", req);
+            System.out.println(res);
             if (res != null && res.getCode() == 0) {
                 onQueryButtonClick();
             }
