@@ -112,14 +112,13 @@ public class MainFrameController {
 
     @FXML
     public void initialize() {
-        handler =new ChangePanelHandler();
-        DataResponse res = HttpRequestUtil.request("/api/base/getMenuList",new DataRequest());
+        handler = new ChangePanelHandler();
+        DataResponse res = HttpRequestUtil.request("/api/base/getMenuList", new DataRequest());
         List<Map> mList = (List<Map>)res.getData();
+        System.out.println("Menu List: " + mList); // 打印菜单数据
         initMenuBar(mList);
         contentTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
-        contentTabPane.setStyle("-fx-background-image: url('BackGroundPicture.jpg');-fx-background-repeat: no-repeat; -fx-background-size: cover;");  //inline选择器
-
-
+        contentTabPane.setStyle("-fx-background-image: url('BackGroundPicture.jpg');-fx-background-repeat: no-repeat; -fx-background-size: cover;");
     }
 
 

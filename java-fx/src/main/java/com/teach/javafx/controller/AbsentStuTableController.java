@@ -166,6 +166,7 @@ public class AbsentStuTableController {
         req.add("end",CommonMethod.getString(data,"end"));
         req.add("auth_status",CommonMethod.getInteger(data,"auth_status"));
         res = HttpRequestUtil.request("/api/absent/absentSave",req);
+        res = HttpRequestUtil.request("/api/absent/absentAuth",req);
         if(res != null && res.getCode()== 0) {
             onQueryButtonClick();
         }
@@ -188,6 +189,7 @@ public class AbsentStuTableController {
         absentStuEditController.showDialog(data);
         MainApplication.setCanClose(false);
         stage.showAndWait();
+        onQueryButtonClick();
     }
     @FXML
     private void onDeleteButtonClick() {

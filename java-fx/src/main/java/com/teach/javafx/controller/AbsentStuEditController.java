@@ -25,6 +25,8 @@ public class AbsentStuEditController {
     private TextField placeField;
     private AbsentStuTableController absentStuTableController= null;
     private Integer studentId= null;
+    private Integer absentId= null;
+    private Integer auth_status= 0;
     @FXML
     public void initialize() {
     }
@@ -37,11 +39,12 @@ public class AbsentStuEditController {
         if(op != null) {
             data.put("personId",Integer.parseInt(op.getValue()));
         }
+        data.put("absentId",absentId);
         data.put("reason",reasonField.getText());
         data.put("start",startPicker.getValue());
         data.put("end",endPicker.getValue());
         data.put("place",placeField.getText());
-        data.put("auth_status",0);
+        data.put("auth_status",auth_status);
         absentStuTableController.doClose("ok",data);
     }
     @FXML
@@ -54,11 +57,13 @@ public class AbsentStuEditController {
     }
     public void init(){
         studentList =absentStuTableController.getStudentList();
-        studentComboBox.getItems().addAll(studentList );
+        studentComboBox.getItems().addAll(studentList);
     }
     public void showDialog(Map data){
         if(data == null) {
             studentId = null;
+            absentId = null;
+            auth_status = 0;
             studentComboBox.getSelectionModel().select(-1);
             studentComboBox.setDisable(false);
             reasonField.setText("");
@@ -67,6 +72,8 @@ public class AbsentStuEditController {
             placeField.setText("");
         }else {
             studentId = CommonMethod.getInteger(data,"studentId");
+            absentId = CommonMethod.getInteger(data,"absentId");
+            auth_status = CommonMethod.getInteger(data,"auth_status");
             studentComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(studentList, CommonMethod.getString(data, "personId")));
             studentComboBox.setDisable(false);
             reasonField.setText(CommonMethod.getString(data, "reason"));

@@ -27,10 +27,6 @@ public class AbsentTeaTableController {
     @FXML
     private TableColumn<Map,String> absentIDColumn;
     @FXML
-    private TableColumn<Map,String> studentIDColumn;
-    @FXML
-    private TableColumn<Map,String> studentNameColumn;
-    @FXML
     private TableColumn<Map,String> reasonColumn;
     @FXML
     private TableColumn<Map,String> placeColumn;
@@ -104,13 +100,11 @@ public class AbsentTeaTableController {
     @FXML
     public void initialize() {
         absentIDColumn.setCellValueFactory(new MapValueFactory<>("absentId"));
-        studentIDColumn.setCellValueFactory(new MapValueFactory<>("studentId"));
-        studentNameColumn.setCellValueFactory(new MapValueFactory<>("studentName"));
         reasonColumn.setCellValueFactory(new MapValueFactory<>("reason"));
         placeColumn.setCellValueFactory(new MapValueFactory<>("place"));
         startColumn.setCellValueFactory(new MapValueFactory<>("start"));
         endColumn.setCellValueFactory(new MapValueFactory<>("end"));
-        statusColumn.setCellValueFactory(new MapValueFactory<>("status"));
+        statusColumn.setCellValueFactory(new MapValueFactory<>("auth_status"));
 
         DataRequest req =new DataRequest();
         studentList = HttpRequestUtil.requestOptionItemList("/api/absent/getStudentItemOptionList",req);

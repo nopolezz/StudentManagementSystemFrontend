@@ -90,6 +90,21 @@ public class CommonMethod {
             return null;
         }
     }
+    public static Long getLong(Map<String,Object> data,String key) {
+        if(data == null)
+            return null;
+        Object obj = data.get(key);
+        if(obj == null)
+            return null;
+        if(obj instanceof Long)
+            return (Long) obj;
+        String str = obj.toString();
+        try {
+            return (long)Double.parseDouble(str);
+        }catch(Exception e) {
+            return null;
+        }
+    }
     public static Integer getInteger0(Map<String,Object> data,String key) {
         if(data == null)
             return 0;
