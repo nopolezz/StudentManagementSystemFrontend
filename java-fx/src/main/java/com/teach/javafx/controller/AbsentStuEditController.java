@@ -73,7 +73,7 @@ public class AbsentStuEditController {
         }else {
             studentId = CommonMethod.getInteger(data,"studentId");
             absentId = CommonMethod.getInteger(data,"absentId");
-            auth_status = CommonMethod.getInteger(data,"auth_status");
+            auth_status = 0;
             studentComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(studentList, CommonMethod.getString(data, "personId")));
             studentComboBox.setDisable(false);
             reasonField.setText(CommonMethod.getString(data, "reason"));

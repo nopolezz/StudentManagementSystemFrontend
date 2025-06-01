@@ -19,10 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class AbsentStuTableController {
     @FXML
@@ -68,7 +65,7 @@ public class AbsentStuTableController {
         DataRequest req =new DataRequest();
         req.add("personId",personId);
         req.add("auth_status",auth_status);
-        res = HttpRequestUtil.request("/api/absent/getAbsentListWithStatus/student",req);
+        res = HttpRequestUtil.request("/api/absent/getAbsentList/student",req);
         if(res != null && res.getCode() == 0) {
             absentListWithStatus = (ArrayList<Map>)res.getData();
         }
@@ -79,18 +76,28 @@ public class AbsentStuTableController {
         observableList.clear();
         Map map;
         Button editButton;
+        // 定义状态映射
+        Map<String, String> statusMap = new HashMap<>();
+        statusMap.put("0.0", "未审批");
+        statusMap.put("1.0", "同意");
+        statusMap.put("2.0", "不同意");
+
         for (int j = 0; j < absentListWithStatus.size(); j++) {
-            map = absentListWithStatus.get(j);
+            map = new HashMap<>(absentListWithStatus.get(j)); // 复制原始 Map 以避免修改原始数据
             editButton = new Button("编辑");
-            editButton.setId("edit"+j);
-            editButton.setOnAction(e->{
+            editButton.setId("edit" + j);
+            editButton.setOnAction(e -> {
                 editItem(((Button)e.getSource()).getId());
             });
-            map.put("edit",editButton);
+            map.put("edit", editButton);
+            // 转换 auth_status 为中文
+            String status = map.get("auth_status") != null ? map.get("auth_status").toString() : "0";
+            map.put("auth_status", statusMap.getOrDefault(status, "未知状态"));
             observableList.addAll(FXCollections.observableArrayList(map));
         }
         dataTableView.setItems(observableList);
     }
+
     public void editItem(String name){
         if(name == null)
             return;
