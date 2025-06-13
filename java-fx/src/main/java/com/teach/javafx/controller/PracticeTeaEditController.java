@@ -36,7 +36,7 @@ public class PracticeTeaEditController {
         op = practiceIdComboBox.getSelectionModel().getSelectedItem();
         if(op != null) {
             data.put("practiceId", Integer.parseInt(op.getValue()));
-            status= 1;
+            status = 1;
             data.put("status", status);
         }
         practiceTeaTableController.doClose("ok",data);
@@ -49,18 +49,18 @@ public class PracticeTeaEditController {
         op = practiceIdComboBox.getSelectionModel().getSelectedItem();
         if(op != null) {
             data.put("practiceId", Integer.parseInt(op.getValue()));
+            status = 2;
+            data.put("status", status);
         }
-        status= 0;
-        data.put("status", status);
         practiceTeaTableController.doClose("reject",data);
     }
 
     @FXML
     public void cancelButtonClick(){
         Map<String,Object> data = new HashMap<>();
-        status= 0;
+        status = 0;
         data.put("status", status);
-        practiceTeaTableController.doClose("cancel",null);
+        practiceTeaTableController.doClose("cancel",data);
     }
 
     public void showDialog(Map data){

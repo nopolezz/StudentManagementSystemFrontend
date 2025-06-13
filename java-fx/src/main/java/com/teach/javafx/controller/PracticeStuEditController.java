@@ -30,9 +30,7 @@ public class PracticeStuEditController {
     private Integer personId = null;
     private Integer status = null;
 
-    public void setPracticeStuTableController(PracticeStuTableController practiceStuTableController) {
-        this.practiceStuTableController = practiceStuTableController;
-    }
+    public void setPracticeStuTableController(PracticeStuTableController practiceStuTableController) {this.practiceStuTableController = practiceStuTableController;}
 
     @FXML
     public void initialize() {
@@ -46,7 +44,11 @@ public class PracticeStuEditController {
         if(op != null) {
             data.put("personId",Integer.parseInt(op.getValue()));
         }
-        data.put("absentId",practiceId);
+        OptionItem op1 = typeComboBox.getSelectionModel().getSelectedItem();
+        if(op1 != null) {
+            data.put("type", String.valueOf(op1.getValue()));
+        }
+        data.put("practiceId",practiceId);
         data.put("name",nameField.getText());
         data.put("time",timePicker.getValue());
         data.put("location",placeField.getText());
@@ -82,10 +84,10 @@ public class PracticeStuEditController {
             practiceId = CommonMethod.getInteger(data,"practiceId");
             status = CommonMethod.getInteger(data,"status");
             studentComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(studentList, CommonMethod.getString(data, "personId")));
-            studentComboBox.setDisable(true);
+            studentComboBox.setDisable(false);
             typeComboBox.getSelectionModel().select(CommonMethod.getOptionItemIndexByValue(typeList, CommonMethod.getString(data, "type")));
             typeComboBox.setDisable(false);
-            nameField.setText(CommonMethod.getString(data, "reason"));
+            nameField.setText(CommonMethod.getString(data, "name"));
             timePicker.setDisable(false);
             placeField.setText(CommonMethod.getString(data, "location"));
         }

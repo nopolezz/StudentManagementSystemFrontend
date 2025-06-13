@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="min" alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.AbsentTeaEditController">
+<VBox fx:id="min" alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.PracticeTeaEditController">
     <padding>
         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
     </padding>

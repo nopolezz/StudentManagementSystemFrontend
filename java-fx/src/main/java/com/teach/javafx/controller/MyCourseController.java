@@ -7,11 +7,14 @@ import com.teach.javafx.request.HttpRequestUtil;
 import com.teach.javafx.AppStore;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,6 +26,7 @@ public class MyCourseController {
     @FXML private TableColumn<Map, String> nameColumn;
     @FXML private TableColumn<Map, String> creditColumn;
     @FXML private TableColumn<Map, Void> operateColumn;
+    @FXML private TextField numNameTextField;
     private ArrayList<Map> courseList = new ArrayList<>();
     private ObservableList<Map> observableList = FXCollections.observableArrayList();
 
@@ -39,6 +43,13 @@ public class MyCourseController {
 
         operateColumn.setCellFactory(col -> new TableCell<>() {
             private final Button deselectButton = new Button("退课");
+            private final HBox buttonBox = new HBox( deselectButton);
+            {
+                // 设置按钮样式
+                deselectButton.setAlignment(Pos.CENTER);
+                buttonBox.setAlignment(Pos.CENTER);
+
+            }
 
             @Override
             protected void updateItem(Void item, boolean empty) {
@@ -48,7 +59,7 @@ public class MyCourseController {
                 } else {
                     Map course = getTableView().getItems().get(getIndex());
                     deselectButton.setOnAction(event -> deselectCourse((String) course.get("courseId")));
-                    setGraphic(deselectButton);
+                    setGraphic(buttonBox);
                 }
             }
         });
@@ -58,7 +69,7 @@ public class MyCourseController {
 
     private void loadSelectedCourses() {
         DataRequest req = new DataRequest();
-        req.add("studentId", AppStore.getJwt().getId()); // user.person_id
+        req.add("studentId", AppStore.getJwt().getId());// user.person_id
         DataResponse res = HttpRequestUtil.request("/api/course/getSelectedCourses", req);
         if (res != null && res.getCode() == 0) {
             courseList = (ArrayList<Map>) res.getData();
@@ -75,14 +86,26 @@ public class MyCourseController {
         req.add("courseId", Integer.parseInt(courseId));
         DataResponse res = HttpRequestUtil.request("/api/course/deselectCourse", req);
         if (res != null && res.getCode() == 0) {
-            MessageDialog.showDialog("选课成功");
+            MessageDialog.showDialog("退课成功");
             loadSelectedCourses(); // 刷新列表
         } else {
-            MessageDialog.showDialog("错误，选课失败");
+            MessageDialog.showDialog("错误，退课失败");
         }
     }
     @FXML
     private void refreshClick(){
         loadSelectedCourses();
+    }
+    @FXML
+    public void onQueryButtonClick() {
+        String numName = numNameTextField.getText();
+        DataRequest req = new DataRequest();
+        req.add("studentId", AppStore.getJwt().getId());
+        req.add("numName", numName);
+        DataResponse res = HttpRequestUtil.request("/api/course/getSelectedCourses", req);
+        if (res != null && res.getCode() == 0) {
+            courseList = (ArrayList<Map>) res.getData();
+            setTableViewData();
+        }
     }
 }

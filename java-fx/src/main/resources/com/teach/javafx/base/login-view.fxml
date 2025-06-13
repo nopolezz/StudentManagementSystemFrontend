@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="min" alignment="CENTER" spacing="20.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.base.LoginController">
+<VBox fx:id="min" alignment="CENTER" spacing="20.0" style=" -fx-background-image: url('LoginBackGroundPicture.jpg');-fx-background-repeat: no-repeat; -fx-background-size: cover;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teach.javafx.controller.base.LoginController">
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-radius: 5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <GridPane alignment="CENTER" hgap="10.0" prefHeight="252.0" prefWidth="487.0" vgap="15.0" BorderPane.alignment="CENTER">
@@ -62,16 +62,6 @@
    </bottom>
       <left>
          <HBox alignment="CENTER_RIGHT" prefHeight="332.0" prefWidth="143.0" BorderPane.alignment="CENTER">
-            <children>
-            <ImageView fx:id="imageView" fitHeight="91.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../picture/HeadPicture.png" />
-               </image>
-                  <HBox.margin>
-                     <Insets top="25.0" />
-                  </HBox.margin>
-            </ImageView>
-            </children>
          </HBox>
       </left>
 </BorderPane>

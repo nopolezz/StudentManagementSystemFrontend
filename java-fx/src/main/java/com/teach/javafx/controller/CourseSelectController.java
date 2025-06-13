@@ -9,6 +9,7 @@ import com.teach.javafx.request.HttpRequestUtil;
 import com.teach.javafx.request.JwtResponse;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -32,6 +33,8 @@ public class CourseSelectController {
     private TableColumn<Map,String> creditColumn;
     @FXML
     private TableColumn<Map, String> operateColumn;
+    @FXML
+    private TextField numNameTextField;
 
     private ArrayList<Map> courseList = new ArrayList<>();
     private ObservableList<Map> observableList = FXCollections.observableArrayList();
@@ -55,8 +58,8 @@ public class CourseSelectController {
             private final HBox buttonBox = new HBox( selectButton);
             {
                 // 设置按钮样式
-                selectButton.setStyle("-fx-background-color: #90EE90; -fx-text-fill: white;");
                 selectButton.setAlignment(Pos.CENTER);
+                buttonBox.setAlignment(Pos.CENTER);
 
             }
 
@@ -89,7 +92,7 @@ public class CourseSelectController {
             MessageDialog.showDialog("选课成功");
         }
         else
-            MessageDialog.showDialog("选课失败");
+            MessageDialog.showDialog("您已经选了这门课程");
     }
 
     private void loadCourses() {
@@ -103,5 +106,20 @@ public class CourseSelectController {
             MessageDialog.showDialog("无法加载课表");
         }
     }
+    @FXML
+    private void refreshClick(){
+        loadCourses();
+    }
 
+    @FXML
+    public void onQueryButtonClick() {
+        String numName = numNameTextField.getText();
+        DataRequest req = new DataRequest();
+        req.add("numName", numName);
+        DataResponse res = HttpRequestUtil.request("/api/course/getCourseList", req);
+        if (res != null && res.getCode() == 0) {
+            courseList = (ArrayList<Map>) res.getData();
+            setTableViewData();
+        }
+    }
 }

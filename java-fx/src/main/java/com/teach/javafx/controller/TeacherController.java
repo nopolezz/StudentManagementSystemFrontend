@@ -40,6 +40,9 @@ import java.util.Map;
  */
 public class TeacherController extends ToolController {
     private ImageView photoImageView;
+    @FXML private Button add;
+    @FXML private Button refresh;
+    @FXML private Button delete;
     @FXML
     private TableView<Map> dataTableView;  //学生信息表
     @FXML
@@ -285,7 +288,12 @@ public class TeacherController extends ToolController {
         if (res.getCode() == 0) {
             personId = CommonMethod.getIntegerFromObject(res.getData());
             MessageDialog.showDialog("提交成功！");
-            onQueryButtonClick();
+            req.add("numName", "");
+            res = HttpRequestUtil.request("/api/teacher/getTeacherList", req); //从后台获取所有学生信息列表集合
+            if (res != null && res.getCode() == 0) {
+                studentList = (ArrayList<Map>) res.getData();
+            }
+            setTableViewData();
         } else {
             MessageDialog.showDialog(res.getMsg());
         }
@@ -307,115 +315,20 @@ public class TeacherController extends ToolController {
         onDeleteButtonClick();
     }
 
-    /**
-     * 导出学生信息表的示例 重写ToolController 中的doExport 这里给出了一个导出学生基本信息到Excl表的示例， 后台生成Excl文件数据，传回前台，前台将文件保存到本地
-     */
-    public void doExport() {
-        String numName = numNameTextField.getText();
-        DataRequest req = new DataRequest();
-        req.add("numName", numName);
-        byte[] bytes = HttpRequestUtil.requestByteData("/api/student/getStudentListExcl", req);
-        if (bytes != null) {
-            try {
-                FileChooser fileDialog = new FileChooser();
-                fileDialog.setTitle("前选择保存的文件");
-                fileDialog.setInitialDirectory(new File("C:/"));
-                fileDialog.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("XLSX 文件", "*.xlsx"));
-                File file = fileDialog.showSaveDialog(null);
-                if (file != null) {
-                    FileOutputStream out = new FileOutputStream(file);
-                    out.write(bytes);
-                    out.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 
     @FXML
     protected void onImportButtonClick() {
-        FileChooser fileDialog = new FileChooser();
-        fileDialog.setTitle("前选择学生数据表");
-        fileDialog.setInitialDirectory(new File("D:/"));
-        fileDialog.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("XLSX 文件", "*.xlsx"));
-        File file = fileDialog.showOpenDialog(null);
-        String paras = "";
-        DataResponse res = HttpRequestUtil.importData("/api/term/importStudentData", file.getPath(), paras);
-        if (res.getCode() == 0) {
-            MessageDialog.showDialog("上传成功！");
-        } else {
-            MessageDialog.showDialog(res.getMsg());
+        DataResponse res;
+        DataRequest req = new DataRequest();
+        req.add("numName", "");
+        res = HttpRequestUtil.request("/api/teacher/getTeacherList", req); //从后台获取所有学生信息列表集合
+        if (res != null && res.getCode() == 0) {
+            studentList = (ArrayList<Map>) res.getData();
         }
+        setTableViewData();
     }
 
-    @FXML
-    protected void onFamilyButtonClick() {
-        DataRequest req = new DataRequest();
-        req.add("personId", personId);
-        DataResponse res = HttpRequestUtil.request("/api/teacher/getFamilyMemberList", req);
-        if (res.getCode() != 0) {
-            MessageDialog.showDialog(res.getMsg());
-            return;
-        }
-        List<Map> familyList = (List<Map>) res.getData();
-        ObservableList<Map> oList = FXCollections.observableArrayList(familyList);
-        Scene scene = null, pScene = null;
-        Stage stage;
-        stage = new Stage();
-        TableView<Map> table = new TableView<>(oList);
-        table.setEditable(true);
-        TableColumn<Map, String> relationColumn = new TableColumn<>("关系");
-        relationColumn.setCellValueFactory(new MapValueFactory("relation"));
-        relationColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        relationColumn.setOnEditCommit(event -> {
-            TableView tempTable = event.getTableView();
-            Map tempEntity = (Map) tempTable.getItems().get(event.getTablePosition().getRow());
-            tempEntity.put("relation",event.getNewValue());
-        });
-        table.getColumns().add(relationColumn);
-        TableColumn<Map, String> nameColumn = new TableColumn<>("姓名");
-        nameColumn.setCellValueFactory(new MapValueFactory<>("name"));
-        nameColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        table.getColumns().add(nameColumn);
-        TableColumn<Map, String> genderColumn = new TableColumn<>("性别");
-        genderColumn.setCellValueFactory(new MapValueFactory<>("gender"));
-        genderColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        table.getColumns().add(genderColumn);
-        TableColumn<Map, String> ageColumn = new TableColumn<>("年龄");
-        ageColumn.setCellValueFactory(new MapValueFactory<>("age"));
-        ageColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        table.getColumns().add(ageColumn);
-        TableColumn<Map, String> unitColumn = new TableColumn<>("单位");
-        unitColumn.setCellValueFactory(new MapValueFactory<>("unit"));
-        unitColumn.setCellFactory(TextFieldTableCell.<Map>forTableColumn());
-        table.getColumns().add(unitColumn);
-        BorderPane root = new BorderPane();
-        FlowPane flowPane = new FlowPane();
-        Button obButton = new Button("确定");
-        obButton.setOnAction(event -> {
-            for(Map map: table.getItems()) {
-                System.out.println("map:"+map);
-            }
-            stage.close();
-        });
-        flowPane.getChildren().add(obButton);
-        root.setCenter(table);
-        root.setBottom(flowPane);
-        scene = new Scene(root, 260, 140);
-        stage.initOwner(MainApplication.getMainStage());
-        stage.initModality(Modality.NONE);
-        stage.setAlwaysOnTop(true);
-        stage.setScene(scene);
-        stage.setTitle("成绩录入对话框！");
-        stage.setOnCloseRequest(event -> {
-            MainApplication.setCanClose(true);
-        });
-        stage.showAndWait();
-    }
+
     public void displayPhoto(){
         DataRequest req = new DataRequest();
         req.add("fileName", "photo/" + personId + ".jpg");  //个人照片显示

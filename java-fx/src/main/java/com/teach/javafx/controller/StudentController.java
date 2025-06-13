@@ -41,6 +41,9 @@ import java.util.Map;
  * @FXML 方法 对应于fxml文件中的 on***Click的属性
  */
 public class StudentController extends ToolController {
+    public Button refresh;
+    public Button add;
+    public Button delete;
     private ImageView photoImageView;
     @FXML
     private TableView<Map> dataTableView;  //学生信息表
@@ -100,7 +103,7 @@ public class StudentController extends ToolController {
     private ArrayList<Map> studentList = new ArrayList();  // 学生信息列表数据
     private List<OptionItem> genderList;   //性别选择列表数据
     private ObservableList<Map> observableList = FXCollections.observableArrayList();// TableView渲染列表
-    private Stage stage=null;
+
 
 
 
@@ -290,7 +293,12 @@ public class StudentController extends ToolController {
         if (res.getCode() == 0) {
             personId = CommonMethod.getIntegerFromObject(res.getData());
             MessageDialog.showDialog("提交成功！");
-            onQueryButtonClick();
+            req.add("numName", "");
+            res = HttpRequestUtil.request("/api/student/getStudentList", req); //从后台获取所有学生信息列表集合
+            if (res != null && res.getCode() == 0) {
+                studentList = (ArrayList<Map>) res.getData();
+            }
+            setTableViewData();
         } else {
             MessageDialog.showDialog(res.getMsg());
         }
@@ -311,65 +319,27 @@ public class StudentController extends ToolController {
         onDeleteButtonClick();
     }
 
-    /**
-     * 导出学生信息表的示例 重写ToolController 中的doExport 这里给出了一个导出学生基本信息到Excl表的示例， 后台生成Excl文件数据，传回前台，前台将文件保存到本地
-     */
-    public void doExport() {
-        String numName = numNameTextField.getText();
-        DataRequest req = new DataRequest();
-        req.add("numName", numName);
-        byte[] bytes = HttpRequestUtil.requestByteData("/api/student/getStudentListExcl", req);
-        if (bytes != null) {
-            try {
-                FileChooser fileDialog = new FileChooser();
-                fileDialog.setTitle("前选择保存的文件");
-                fileDialog.setInitialDirectory(new File("C:/"));
-                fileDialog.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("XLSX 文件", "*.xlsx"));
-                File file = fileDialog.showSaveDialog(null);
-                if (file != null) {
-                    FileOutputStream out = new FileOutputStream(file);
-                    out.write(bytes);
-                    out.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
     @FXML
     protected void onImportButtonClick() {
-        FileChooser fileDialog = new FileChooser();
-        fileDialog.setTitle("前选择学生数据表");
-        fileDialog.setInitialDirectory(new File("D:/"));
-        fileDialog.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("XLSX 文件", "*.xlsx"));
-        File file = fileDialog.showOpenDialog(null);
-        String paras = "";
-        DataResponse res = HttpRequestUtil.importData("/api/term/importStudentData", file.getPath(), paras);
-        if (res.getCode() == 0) {
-            MessageDialog.showDialog("上传成功！");
-        } else {
-            MessageDialog.showDialog(res.getMsg());
+        DataResponse res;
+        DataRequest req = new DataRequest();
+        req.add("numName", "");
+        res = HttpRequestUtil.request("/api/student/getStudentList", req); //从后台获取所有学生信息列表集合
+        if (res != null && res.getCode() == 0) {
+            studentList = (ArrayList<Map>) res.getData();
         }
+        setTableViewData();
     }
 
 
     public void displayPhoto(){
         DataRequest req = new DataRequest();
-        req.add("personId", personId);
         req.add("fileName", "photo/" + personId + ".jpg");  //个人照片显示
-
         byte[] bytes = HttpRequestUtil.requestByteData("/api/base/getFileByteData", req);
-        System.out.println(bytes);
         if (bytes != null) {
             ByteArrayInputStream in = new ByteArrayInputStream(bytes);
             Image img = new Image(in);
             photoImageView.setImage(img);
-        } else {
-            photoImageView.setImage(null);
         }
 
     }

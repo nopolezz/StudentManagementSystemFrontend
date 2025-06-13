@@ -20,6 +20,7 @@ public class MainApplication extends Application {
     private static Stage mainStage;
     private static double stageWidth = -1;
     private static double stageHeight = -1;
+
     private static boolean canClose=true;
 
     @Override

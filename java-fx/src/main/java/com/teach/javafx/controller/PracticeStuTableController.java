@@ -55,7 +55,7 @@ public class PracticeStuTableController {
         nameColumn.setCellValueFactory(new MapValueFactory<>("name"));
         timeColumn.setCellValueFactory(new MapValueFactory<>("time"));
         typeColumn.setCellValueFactory(new MapValueFactory<>("type"));
-        placeColumn.setCellValueFactory(new MapValueFactory<>("place"));
+        placeColumn.setCellValueFactory(new MapValueFactory<>("location"));
         statusColumn.setCellValueFactory(new MapValueFactory<>("status"));
 
         DataRequest req =new DataRequest();
@@ -196,14 +196,16 @@ public class PracticeStuTableController {
         }
         DataRequest req =new DataRequest();
         req.add("personId",personId);
-        req.add("practiceId",CommonMethod.getInteger(data,"absentId"));
+        req.add("practiceId",CommonMethod.getInteger(data,"practiceId"));
         req.add("name",CommonMethod.getString(data,"name"));
         req.add("location",CommonMethod.getString(data,"location"));
         req.add("time",CommonMethod.getString(data,"time"));
+        req.add("type",CommonMethod.getString(data,"type"));
         res = HttpRequestUtil.request("/api/practice/practiceSave",req);
         DataRequest req1 =new DataRequest();
-        req1.add("practice",CommonMethod.getInteger(data,"absentId"));
-        req1.add("status",null);
+        req1.add("practiceId",CommonMethod.getInteger(data,"practiceId"));
+        req1.add("status",0);
+        res = HttpRequestUtil.request("/api/practice/practiceAuth",req1);
         if(res != null && res.getCode() == 0) {
             onQueryButtonClick();
         }

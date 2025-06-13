@@ -20,10 +20,29 @@
      -fx-translate-y:1px;
 
 }
-.table-header-cell {
-    -fx-background-color: skyblue;
+.table-view {
+    -fx-border-color: gray; /* 设置TableView边框颜色为灰色 */
+    -fx-border-width: 2px; /* 设置边框宽度为1像素 */
+
+}
+.table-view .column-header {
+    -fx-background-color:  #87CEFA; /* 表头背景色为浅灰色 */
+    -fx-text-fill: black; /* 表头文字颜色为黑色 */
+    -fx-font-weight: bold; /* 表头文字加粗 */
+
 }
 
 
+/* 修改表格线颜色为深蓝色（#1E3A8A） */
+.table-view .table-cell {
+    -fx-border-color: skyblue;
+    -fx-border-width: 0.5px; /* 可选：调整边框粗细 */
+}
+
+/* 单独设置表头边框颜色（若需要） */
+.table-view .column-header .label {
+    -fx-border-color: #3b3b3b;
+    -fx-border-width: 0 0 1px 0; /* 仅设置底部边框 */
+}
 
 

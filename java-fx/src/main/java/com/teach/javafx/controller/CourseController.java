@@ -6,6 +6,7 @@ import com.teach.javafx.request.DataResponse;
 import com.teach.javafx.request.HttpRequestUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
@@ -27,13 +28,16 @@ public class CourseController {
     @FXML private TextField nameField;
     @FXML private TextField creditField;
     @FXML private Button addButton;
+    @FXML private TextField numNameTextField;
 
     private ArrayList<Map> courseList = new ArrayList<>();
     private ObservableList<Map> observableList = FXCollections.observableArrayList();
 
     private void setTableViewData() {
         observableList.clear();
-        observableList.addAll(courseList);
+        for (int j = 0; j < courseList.size(); j++) {
+            observableList.addAll(FXCollections.observableArrayList(courseList.get(j)));
+        }
         dataTableView.setItems(observableList);
     }
 
@@ -138,5 +142,20 @@ public class CourseController {
         numField.clear();
         nameField.clear();
         creditField.clear();
+    }
+    @FXML
+    private void refreshClick(){
+        loadCourses();
+    }
+
+    public void onQueryButtonClick() {
+        String numName = numNameTextField.getText();
+        DataRequest req = new DataRequest();
+        req.add("numName", numName);
+        DataResponse res = HttpRequestUtil.request("/api/course/getCourseList", req);
+        if (res != null && res.getCode() == 0) {
+            courseList = (ArrayList<Map>) res.getData();
+            setTableViewData();
+        }
     }
 }

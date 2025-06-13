@@ -19,10 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class PracticeTeaTableController {
     @FXML
@@ -58,12 +55,12 @@ public class PracticeTeaTableController {
         practiceIdColumn.setCellValueFactory(new MapValueFactory<>("practiceId"));
         nameColumn.setCellValueFactory(new MapValueFactory<>("name"));
         typeColumn.setCellValueFactory(new MapValueFactory<>("type"));
-        placeColumn.setCellValueFactory(new MapValueFactory<>("place"));
+        placeColumn.setCellValueFactory(new MapValueFactory<>("location"));
         timeColumn.setCellValueFactory(new MapValueFactory<>("time"));
         statusColumn.setCellValueFactory(new MapValueFactory<>("status"));
         DataRequest req =new DataRequest();
         studentList = HttpRequestUtil.requestOptionItemList("/api/practice/getStudentItemOptionList",req);
-        practiceIdList = HttpRequestUtil.requestOptionItemList("api/practice/getPracticeItemOptionList",req);
+        practiceIdList = HttpRequestUtil.requestOptionItemList("/api/practice/getPracticeItemOptionList",req);
         OptionItem item = new OptionItem(null,"0","请选择");
         studentComboBox.getItems().addAll(item);
         studentComboBox.getItems().addAll(studentList);
@@ -92,14 +89,20 @@ public class PracticeTeaTableController {
         observableList.clear();
         Map map;
         Button editButton;
+        Map<String, String> statusMap = new HashMap<>();
+        statusMap.put("0.0", "未审批");
+        statusMap.put("1.0", "同意");
+        statusMap.put("2.0", "不同意");
         for (int j = 0; j < practiceList.size(); j++) {
-            map = practiceList.get(j);
+            map = new HashMap<>(practiceList.get(j));
             editButton = new Button("编辑");
             editButton.setId("edit"+j);
             editButton.setOnAction(e->{
                 editItem(((Button)e.getSource()).getId());
             });
             map.put("edit",editButton);
+            String status = map.get("status") != null ? map.get("status").toString() : "0";
+            map.put("status", statusMap.getOrDefault(status, "未知状态"));
             observableList.addAll(FXCollections.observableArrayList(map));
         }
         dataTableView.setItems(observableList);
@@ -181,11 +184,11 @@ public class PracticeTeaTableController {
             DataResponse res;
             Integer practiceId = CommonMethod.getInteger(data, "practiceId");
             if (practiceId == null) {
-                MessageDialog.showDialog("没有选中项目不能添加保存！");
+                MessageDialog.showDialog("没有选中项目无法审批！");
                 return;
             }
             DataRequest req = new DataRequest();
-            req.add("practice", CommonMethod.getInteger(data, "practiceId"));
+            req.add("practiceId", CommonMethod.getInteger(data, "practiceId"));
             req.add("status", CommonMethod.getInteger(data, "status"));
             res = HttpRequestUtil.request("/api/practice/practiceAuth", req);
             if (res != null && res.getCode() == 0) {
@@ -194,7 +197,7 @@ public class PracticeTeaTableController {
         }else if("reject".equals(cmd)) {
             DataRequest req = new DataRequest();
             DataResponse res;
-            req.add("practice", CommonMethod.getInteger(data, "practiceId"));
+            req.add("practiceId", CommonMethod.getInteger(data, "practiceId"));
             req.add("status", CommonMethod.getInteger(data, "status"));
             res = HttpRequestUtil.request("/api/practice/practiceAuth", req);
             if (res != null && res.getCode() == 0) {
